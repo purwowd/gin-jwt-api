@@ -10,3 +10,7 @@ type LoginInput struct {
 	Email    string
 	Password string
 }
+
+type CheckEmailInput struct {
+	Email string
+}
