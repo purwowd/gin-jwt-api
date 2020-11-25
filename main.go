@@ -39,7 +39,7 @@ func main() {
 	router.Use(cors.Default())
 
 	api := router.Group("/api/v1")
-	api.POST("/users", userHandler.RegisterUser)
+	api.POST("/users/register", userHandler.RegisterUser)
 
 	_ = router.Run(":1337")
 
