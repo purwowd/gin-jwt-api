@@ -6,6 +6,7 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/purwowd/go-jwt-api/auth"
 	"github.com/purwowd/go-jwt-api/handler"
+	"github.com/purwowd/go-jwt-api/middleware"
 	"github.com/purwowd/go-jwt-api/user"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -35,6 +36,8 @@ func main() {
 
 	userHandler := handler.NewUserHandler(userService, authService)
 
+	authMiddleware := middleware.AuthMiddleware
+
 	router := gin.Default()
 	router.Use(cors.Default())
 
@@ -42,6 +45,7 @@ func main() {
 	api.POST("/users/register", userHandler.RegisterUser)
 	api.POST("/users/login", userHandler.Login)
 	api.POST("/users/email-checkers", userHandler.CheckEmailAvailability)
+	api.POST("/users/avatars", authMiddleware(authService, userService), userHandler.UploadAvatar)
 
 	_ = router.Run(":1337")
 

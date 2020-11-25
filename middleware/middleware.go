@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-func authMiddleware(authService auth.Service, userService user.Service) gin.HandlerFunc {
+func AuthMiddleware(authService auth.Service, userService user.Service) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
 
